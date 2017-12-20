@@ -5,7 +5,7 @@ Release: 1
 License: BSD
 Group: Applications/Databases
 URL: http://sqlcipher.net/
-Source0: https://github.com/sqlcipher/sqlcipher/archive/v%{version}.tar.gz
+Source0: %{name}-%{version}.tar.xz
 BuildRequires: ncurses-devel readline-devel glibc-devel
 BuildRequires: autoconf
 BuildRequires: openssl-devel
