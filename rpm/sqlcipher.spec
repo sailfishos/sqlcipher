@@ -6,7 +6,7 @@ License: BSD
 Group: Applications/Databases
 URL: http://sqlcipher.net/
 Source0: %{name}-%{version}.tar.xz
-BuildRequires: ncurses-devel readline-devel glibc-devel
+BuildRequires: glibc-devel
 BuildRequires: autoconf
 BuildRequires: openssl-devel
 BuildRequires: tcl-devel
@@ -48,16 +48,19 @@ to install %{name}-devel.
 %setup -q -n %{name}-%{version}/%{name}
 
 %build
-%configure --disable-tcl --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC" LDFLAGS="-lcrypto"
+autoreconf -vfi
+%configure                      \
+    --disable-readline          \
+    --disable-tcl               \
+    --enable-tempstore=yes      \
+    CFLAGS="-DSQLITE_HAS_CODEC" \
+    LDFLAGS="-lcrypto"
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=${RPM_BUILD_ROOT} install
-install -D -m0644 sqlcipher.1 $RPM_BUILD_ROOT/%{_mandir}/man1/sqlcipher.1
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+install -D -m0644 sqlcipher.1 %{buildroot}/%{_mandir}/man1/sqlcipher.1
 
 %post -p /sbin/ldconfig
 
@@ -65,7 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
-%doc README.md LICENSE
+%license LICENSE
+%doc README.md
 %{_bindir}/sqlcipher
 %{_libdir}/*.so.*
 %{_mandir}/man?/*
