@@ -10,6 +10,7 @@ BuildRequires: glibc-devel
 BuildRequires: autoconf
 BuildRequires: openssl-devel
 BuildRequires: tcl-devel
+BuildRequires: pkgconfig(icu-i18n)
 
 %description
  SQLCipher is a C library that implements an encryption in the SQLite 3
@@ -53,8 +54,8 @@ autoreconf -vfi
     --disable-readline          \
     --disable-tcl               \
     --enable-tempstore=yes      \
-    CFLAGS="-DSQLITE_HAS_CODEC" \
-    LDFLAGS="-lcrypto"
+    CFLAGS="-DSQLITE_HAS_CODEC -DSQLITE_ENABLE_ICU" \
+    LDFLAGS="`icu-config --ldflags-libsonly`"
 make %{?_smp_mflags}
 
 %install
