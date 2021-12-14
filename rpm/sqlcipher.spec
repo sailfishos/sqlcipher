@@ -1,6 +1,6 @@
 Summary: AES encryption for SQLite databases
 Name: sqlcipher
-Version: 3.4.1
+Version: 4.5.0
 Release: 1
 License: BSD
 Group: Applications/Databases
@@ -72,13 +72,13 @@ install -D -m0644 sqlcipher.1 %{buildroot}/%{_mandir}/man1/sqlcipher.1
 %doc README.md
 %{_bindir}/sqlcipher
 %{_libdir}/*.so.*
-%{_mandir}/man?/*
 
 %files devel
 %defattr(-, root, root)
 %{_includedir}/sqlcipher/*.h
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_mandir}/man?/*
 %exclude %{_libdir}/*.a
 %exclude %{_libdir}/*.la
 
