@@ -1,6 +1,6 @@
 Summary: AES encryption for SQLite databases
 Name: sqlcipher
-Version: 3.4.1
+Version: 4.5.0
 Release: 1
 License: BSD
 Group: Applications/Databases
@@ -10,6 +10,7 @@ BuildRequires: glibc-devel
 BuildRequires: autoconf
 BuildRequires: openssl-devel
 BuildRequires: tcl-devel
+BuildRequires: pkgconfig(icu-i18n)
 
 %description
  SQLCipher is a C library that implements an encryption in the SQLite 3
@@ -53,8 +54,8 @@ autoreconf -vfi
     --disable-readline          \
     --disable-tcl               \
     --enable-tempstore=yes      \
-    CFLAGS="-DSQLITE_HAS_CODEC" \
-    LDFLAGS="-lcrypto"
+    CFLAGS="-DSQLITE_HAS_CODEC -DSQLITE_ENABLE_ICU" \
+    LDFLAGS="`icu-config --ldflags-libsonly`"
 make %{?_smp_mflags}
 
 %install
@@ -72,13 +73,13 @@ install -D -m0644 sqlcipher.1 %{buildroot}/%{_mandir}/man1/sqlcipher.1
 %doc README.md
 %{_bindir}/sqlcipher
 %{_libdir}/*.so.*
-%{_mandir}/man?/*
 
 %files devel
 %defattr(-, root, root)
 %{_includedir}/sqlcipher/*.h
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_mandir}/man?/*
 %exclude %{_libdir}/*.a
 %exclude %{_libdir}/*.la
 
