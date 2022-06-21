@@ -3,7 +3,6 @@ Name: sqlcipher
 Version: 4.5.0
 Release: 1
 License: BSD
-Group: Applications/Databases
 URL: https://github.com/sailfishos/sqlcipher
 Source0: %{name}-%{version}.tar.xz
 BuildRequires: glibc-devel
@@ -36,7 +35,6 @@ BuildRequires: pkgconfig(icu-i18n)
 
 %package devel
 Summary: Development tools for the sqlite3 embeddable SQL database engine
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig
 
