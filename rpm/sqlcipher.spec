@@ -4,7 +4,7 @@ Version: 3.4.1
 Release: 1
 License: BSD
 Group: Applications/Databases
-URL: http://sqlcipher.net/
+URL: https://github.com/sailfishos/sqlcipher
 Source0: %{name}-%{version}.tar.xz
 BuildRequires: glibc-devel
 BuildRequires: autoconf
